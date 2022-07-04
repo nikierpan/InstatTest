@@ -42,9 +42,14 @@ class PlayingField:
 
         # check for win combination
         for combination in self.win_coordinates:
-            if self.field[combination[0]] == self.field[combination[1]] == self.field[combination[2]]:
-                if self.field[combination[0]] != '.':
-                    return f"{self.field[combination[0]]} wins!"
+            flag = False
+            last = self.field[combination[0]]
+            for i in range(self.size):
+                flag = last == self.field[combination[i]]
+                if not flag:
+                    break
+            if flag and self.field[combination[0]] != '.':
+                return f"{self.field[combination[0]]} wins!"
 
         return "Game is continues!"
 
@@ -66,7 +71,7 @@ class PlayingField:
             print(*self.field[start_slice: end_slice])
         print("\n")
 
-        print(self.check_field_state())
+        print(self.check_field_state() + '\n\n')
 
 
 a = PlayingField(3)
